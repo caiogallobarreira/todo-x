@@ -7,7 +7,7 @@ export default async function ListTasks() {
     return (
         <>
             {tasks.map((task) => (
-                <TaskCard key={task.id} task={task} />
+                <TaskCard key={task.id} task={task}/>
             ))}
         </>
     )
