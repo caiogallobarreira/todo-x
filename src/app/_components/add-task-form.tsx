@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -8,12 +8,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CreateTaskValidationSchema, createTaskValidationSchema } from '@/lib/database/task';
+import { createTask } from '../actions';
+import toast from 'react-hot-toast';
 
-type Props = {
-    handleCreate: (task: CreateTaskValidationSchema) => void;
-}
 
-export default function AddTaskForm(props: Props): JSX.Element {
+export default function AddTaskForm(): JSX.Element {
     const form = useForm<CreateTaskValidationSchema>({
         resolver: zodResolver(createTaskValidationSchema),
         defaultValues: {
@@ -21,9 +20,16 @@ export default function AddTaskForm(props: Props): JSX.Element {
         }
     })
 
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
+
     const handleSubmit = (validatedTask: CreateTaskValidationSchema) => {
-        props.handleCreate(validatedTask);
         form.reset();
+        setButtonDisabled(true);
+        createTask(validatedTask).then(() => {
+            toast.success("Tarefa criada com sucesso!")
+            setButtonDisabled(false);
+        });
     };
 
     return (
@@ -50,7 +56,14 @@ export default function AddTaskForm(props: Props): JSX.Element {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit">Adicionar</Button>
+
+                        <Button 
+                            type="submit"
+                            disabled={buttonDisabled}
+                            aria-disabled={buttonDisabled}
+                        >
+                            Adicionar
+                        </Button>
                     </form>
                 </Form>
             </CardContent>

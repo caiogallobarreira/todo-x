@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import Header from "@/components/layout/header";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "TodoX",
@@ -29,6 +30,7 @@ export default function RootLayout({
             {children}
           </main>
         </ThemeProvider>
+        <Toaster/>
       </body>
     </html>
   );

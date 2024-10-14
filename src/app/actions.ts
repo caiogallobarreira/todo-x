@@ -1,40 +1,27 @@
 'use server'
 import { CreateTaskValidationSchema } from "@/lib/database/task";
-import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { Task } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export const createTask = async (validatedTask: CreateTaskValidationSchema) => {
-    try {
-        const createdTask = await prisma.task.create({
-            data: validatedTask,
-        });
-    
-        revalidatePath("/");
-        return createdTask;
-    } catch (err) {
-        console.log(err);
-        return false;
-    } 
+    await prisma.task.create({
+        data: validatedTask,
+    });
+
+    revalidatePath("/");
 };
 
 export const deleteTask = async (id: number) => {
-    try {
-        await prisma.task.delete({
-            where: {
-                id,
-            },
-        });
-
-        revalidatePath("/");
-        return true;
-    } catch (err) {
-        console.log(err);
-        return false;
-    }
+    await prisma.task.delete({
+        where: {
+            id,
+        },
+    });        
+    revalidatePath("/");
 };
 
 
-export const fetchAllTasks = async () => {
-    const tasks = await prisma.task.findMany();
-    return tasks;
+export const fetchAllTasks = async (): Promise<Task[]> => {
+    return await prisma.task.findMany();
 };
