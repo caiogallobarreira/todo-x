@@ -1,7 +1,7 @@
+import { Task } from '@prisma/client';
 import { createTask, deleteTask, fetchAllTasks } from './actions';
 import AddTaskForm from "./components/add-task-form";
 import TaskCard from './components/task-card';
-import { Task } from '~/';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store'
