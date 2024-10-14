@@ -1,23 +1,23 @@
-"use client"
+import { createTask, deleteTask, fetchAllTasks } from './actions';
+import AddTaskForm from "./components/add-task-form";
+import TaskCard from './components/task-card';
 
-import { useState } from "react";
-import AddTaskForm from "./add-task-form";
-import { Task } from "@/lib/schemas/task.schema";
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store'
+export const revalidate = 1;
 
-
-export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  const addTask = (task: Task) => {
-    setTasks([...tasks, task]);
-  };
-
+export default async function Home() {
+  const tasks = await fetchAllTasks();
 
   return (
-    <div className="">
-      <AddTaskForm handleSubmit={addTask} />
+    <div className="flex flex-col gap-4">
+      <AddTaskForm handleCreate={createTask} />
 
-      {JSON.stringify(tasks)}
+      <div className="flex flex-col gap-2">
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} handleDelete={deleteTask}/>
+        ))}
+      </div>
     </div>
   );
 }

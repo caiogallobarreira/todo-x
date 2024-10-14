@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import Header from "@/components/layout/header";
 
@@ -25,7 +25,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header/>
-          <main className="mx-auto my-16 w-[64%]">
+          <main className="mx-auto my-16 w-[64%] ">
             {children}
           </main>
         </ThemeProvider>

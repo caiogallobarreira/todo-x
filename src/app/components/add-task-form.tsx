@@ -7,23 +7,22 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Task, taskSchema } from '@/lib/schemas/task.schema';
-
+import { CreateTaskValidationSchema, createTaskValidationSchema } from '@/lib/database/task';
 
 type Props = {
-    handleSubmit: (task: Task) => void;
+    handleCreate: (task: CreateTaskValidationSchema) => void;
 }
 
 export default function AddTaskForm(props: Props): JSX.Element {
-    const form = useForm<Task>({
-        resolver: zodResolver(taskSchema),
+    const form = useForm<CreateTaskValidationSchema>({
+        resolver: zodResolver(createTaskValidationSchema),
         defaultValues: {
             description: '',
         }
     })
 
-    const handleSubmit = (values: Task) => {
-        props.handleSubmit(values);
+    const handleSubmit = (validatedTask: CreateTaskValidationSchema) => {
+        props.handleCreate(validatedTask);
         form.reset();
     };
 
