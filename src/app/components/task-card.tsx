@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { StickyNote } from 'lucide-react';
-import { Task } from '@prisma/client';
 import { Button } from '@/components/ui/button';
+import { Task } from '~/';
 
 
 type Props = {
