@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -26,7 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header/>
-          <main className="mx-auto my-16 w-[64%] ">
+          <main className="mx-auto my-16 w-[64%]">
             {children}
           </main>
         </ThemeProvider>
