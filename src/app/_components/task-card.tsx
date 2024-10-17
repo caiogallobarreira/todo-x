@@ -19,7 +19,10 @@ export default function TaskCard({ task }: Props): JSX.Element {
         setButtonDisabled(true);
         deleteTask(task.id).then(() => {
             toast.success("Tarefa excluida com sucesso!");
-        });
+        }).catch((e) => {
+            toast.error(e.message)
+            setButtonDisabled(false);
+        })
     }
 
     return (

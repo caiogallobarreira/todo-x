@@ -5,19 +5,26 @@ import { Task } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export const createTask = async (validatedTask: CreateTaskValidationSchema) => {
-    await prisma.task.create({
+    const create = await prisma.task.create({
         data: validatedTask,
     });
+
+    console.log("CREATED");
+    console.log(create);
 
     revalidatePath("/");
 };
 
 export const deleteTask = async (id: number) => {
-    await prisma.task.delete({
+    const deleted = await prisma.task.delete({
         where: {
             id,
         },
-    });        
+    });  
+    
+    console.log("DELETED");
+    console.log(deleted);
+    
     revalidatePath("/");
 };
 

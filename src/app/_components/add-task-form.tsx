@@ -24,12 +24,15 @@ export default function AddTaskForm(): JSX.Element {
 
 
     const handleSubmit = (validatedTask: CreateTaskValidationSchema) => {
-        form.reset();
         setButtonDisabled(true);
         createTask(validatedTask).then(() => {
             toast.success("Tarefa criada com sucesso!")
             setButtonDisabled(false);
-        });
+            form.reset();
+        }).catch((e) => {
+            toast.error(e.message)
+            setButtonDisabled(false);
+        })
     };
 
     return (
