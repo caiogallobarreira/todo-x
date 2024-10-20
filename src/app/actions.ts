@@ -9,10 +9,8 @@ export const createTask = async (validatedTask: CreateTaskValidationSchema) => {
         data: validatedTask,
     });
 
-    console.log("CREATED");
-    console.log(create);
-
     revalidatePath("/");
+    return create;
 };
 
 export const deleteTask = async (id: number) => {
@@ -20,12 +18,10 @@ export const deleteTask = async (id: number) => {
         where: {
             id,
         },
-    });  
-    
-    console.log("DELETED");
-    console.log(deleted);
+    });
     
     revalidatePath("/");
+    return deleted;
 };
 
 

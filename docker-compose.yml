@@ -1,0 +1,29 @@
+services:
+  appx-next:
+    # build:
+    #   context: ./
+    #   target: runner
+    volumes:
+      - './src:/app/src'
+    build:
+      dockerfile: Dockerfile.development
+    env_file: ".env"
+    depends_on:
+      - appx-postgres
+    ports:
+      - "3000:3000"
+      - "5555:5555"
+  appx-postgres:
+    image: postgres:17.0-alpine3.20
+    restart: always
+    env_file: ".env"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=appx-ignite
+      - POSTGRES_PASSWORD=appx@p0stgr3s!@-1gn1t3
+      - POSTGRES_DB=ignite
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

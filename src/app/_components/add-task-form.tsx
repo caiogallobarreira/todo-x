@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CreateTaskValidationSchema, createTaskValidationSchema } from '@/lib/database/task';
 import { createTask } from '../actions';
 import toast from 'react-hot-toast';
+import { Plus } from 'lucide-react';
 
 
 export default function AddTaskForm(): JSX.Element {
@@ -65,6 +66,7 @@ export default function AddTaskForm(): JSX.Element {
                             disabled={buttonDisabled}
                             aria-disabled={buttonDisabled}
                         >
+                            <Plus size={14} className="mr-2"/>
                             Adicionar
                         </Button>
                     </form>
